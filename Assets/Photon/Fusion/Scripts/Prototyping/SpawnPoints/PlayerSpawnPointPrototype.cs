@@ -6,7 +6,7 @@ using Fusion;
 /// <summary>
 /// Flag component to identify GameObjects that should be used as markers for spawn points.
 /// </summary>
-[ScriptHelp(BackColor = EditorHeaderBackColor.Steel)]
+//[ScriptHelp(BackColor = EditorHeaderBackColor.Steel)]
 public class PlayerSpawnPointPrototype : SimulationBehaviour, ISpawnPointPrototype
 {
   //public static List<PlayerSpawnPointPrototype> EnabledSpawns = new List<PlayerSpawnPointPrototype>();

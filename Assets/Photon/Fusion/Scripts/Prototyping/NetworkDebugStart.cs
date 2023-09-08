@@ -117,6 +117,9 @@ public class NetworkDebugStart : Fusion.Behaviour {
   public string InitialScenePath;
   static string _initialScenePath;
 
+  [SerializeField]
+  private int NetworkSceneIndex;
+    
   /// <summary>
   /// Indicates which step of the startup process <see cref="NetworkDebugStart"/> is currently in.
   /// </summary>
@@ -232,7 +235,13 @@ public class NetworkDebugStart : Fusion.Behaviour {
   }
 
   protected bool TryGetSceneRef(out SceneRef sceneRef) {
+
+    //if (NetworkSceneIndex > 0 && NetworkSceneIndex <= SceneManager.sceneCountInBuildSettings) {
+    //  sceneRef = NetworkSceneIndex;
+    //  return true;
+    //}
     var activeScene = SceneManager.GetActiveScene();
+
     if (activeScene.buildIndex < 0 || activeScene.buildIndex >= SceneManager.sceneCountInBuildSettings) {
       sceneRef = default;
       return false;
