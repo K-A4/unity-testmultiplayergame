@@ -11,10 +11,11 @@ public class PlayerMovement : NetworkBehaviour
 
     private Vector2 goalVelocity;
     private Rigidbody2D rigidBody;
-
+    private VirtualGamepad inputGamepad;
     public override void Spawned()
     {
-        rigidBody = GetComponent<Rigidbody2D>(); 
+        rigidBody = GetComponent<Rigidbody2D>();
+        inputGamepad = ServiceLocator.Instance.GetService<VirtualGamepad>();
     }
 
     public override void FixedUpdateNetwork()
@@ -24,6 +25,7 @@ public class PlayerMovement : NetworkBehaviour
             return;
         }
         var inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        inputVector += inputGamepad.Value;
         inputVector = Vector2.ClampMagnitude(inputVector, 1.0f);
 
         HandleMovement(inputVector);

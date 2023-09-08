@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class VirtualGamepad : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
-    public bool StaticGamepad;
-    public bool TouchPad;
+    [SerializeField] private bool StaticGamepad;
+    [SerializeField] private bool TouchPad;
 
     [HideInInspector]
     public Vector2 Value = Vector2.zero;
