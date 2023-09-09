@@ -1,12 +1,5 @@
 using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Fusion;
-using Fusion.Sockets;
-using System;
-using System.Threading.Tasks;
-using System.Linq;
 
 public class LobbyUI : MonoBehaviour
 {

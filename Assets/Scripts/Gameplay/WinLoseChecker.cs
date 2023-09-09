@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Fusion;
 
 public class WinLoseChecker : NetworkBehaviour
@@ -14,12 +11,12 @@ public class WinLoseChecker : NetworkBehaviour
 
     public override void Spawned()
     {
-        playerHealth = GetComponent<Health>();
+        playerHealth  = GetComponent<Health>();
         coinCollector = GetComponent<CoinCollector>();
-        nick = GetComponent<PlayerNick>();
+        nick          = GetComponent<PlayerNick>();
         winLoseTextUI = ServiceLocator.Instance.GetService<WinLoseTextUI>();
-        alivePlayers = ServiceLocator.Instance.GetService<AlivePlayerRegistry>();
-        game = ServiceLocator.Instance.GetService<GameLoader>();
+        alivePlayers  = ServiceLocator.Instance.GetService<AlivePlayerRegistry>();
+        game          = ServiceLocator.Instance.GetService<GameLoader>();
         alivePlayers.OnCountChanged += CheckWin;
     }
 

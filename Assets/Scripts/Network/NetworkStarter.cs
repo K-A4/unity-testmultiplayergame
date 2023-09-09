@@ -2,7 +2,6 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -14,10 +13,6 @@ public class NetworkStarter : MonoBehaviour
 
     public IEnumerator LoadingConnection(string roomName)
     {
-        //runnerPrefab = Instantiate(runnerPrefab);
-        //DontDestroyOnLoad(runnerPrefab);
-        //runnerPrefab.name = "Temporary Runner Prefab";
-
         var clientsStartTask = AddClient(GameMode.Shared, sceneIndex, roomName);
 
         while (clientsStartTask.IsCompleted == false)

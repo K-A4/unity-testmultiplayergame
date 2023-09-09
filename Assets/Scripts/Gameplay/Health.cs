@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Fusion;
@@ -11,7 +9,6 @@ public class Health : NetworkBehaviour
 
     [SerializeField] private float maxHealth;
     private AlivePlayerRegistry playersAlive;
-    private WinLoseTextUI winLoseTextUI;
 
     [Networked]
     private float healthPoints { get; set; }
@@ -22,7 +19,6 @@ public class Health : NetworkBehaviour
         healthPoints = maxHealth;
         isDead = false;
         playersAlive = ServiceLocator.Instance.GetService<AlivePlayerRegistry>();
-        winLoseTextUI = ServiceLocator.Instance.GetService<WinLoseTextUI>();
     }
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
