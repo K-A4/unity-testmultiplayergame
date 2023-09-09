@@ -16,6 +16,7 @@ public class Shooter : NetworkBehaviour
         {
             return;
         }
+
         timeElapsed += Runner.DeltaTime;
         if (timeElapsed > firePeriod)
         {

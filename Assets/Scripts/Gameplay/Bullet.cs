@@ -10,14 +10,11 @@ public class Bullet : NetworkBehaviour
     [SerializeField] private float bulletDamage;
     [SerializeField] private float bulletSpeed;
 
+    private bool isHit = false;
     private float timeToDead;
 
     public override void Spawned()
     {
-        if (HasStateAuthority ==  false)
-        {
-            return;
-        }
         timeToDead = lifeTime;
     }
 
@@ -25,7 +22,7 @@ public class Bullet : NetworkBehaviour
     {
         CheckBulletOverlap();
 
-        if (Runner)
+        if (!isHit)
         {
             timeToDead -= Runner.DeltaTime;
 
@@ -33,7 +30,7 @@ public class Bullet : NetworkBehaviour
 
             if (timeToDead < 0)
             {
-                Runner.Despawn(GetComponent<NetworkObject>());
+                DestroyBullet();
             }
         }
     }
@@ -41,13 +38,21 @@ public class Bullet : NetworkBehaviour
     private void CheckBulletOverlap()
     {
         var hit = Runner.GetPhysicsScene2D().Raycast(transform.position, transform.up, bulletDistance);
+
         if (hit.transform)
         {
             if (hit.transform.TryGetComponent(out Health health))
             {
-                health.TakeDamage(bulletDamage);
-                Runner.Despawn(GetComponent<NetworkObject>());
+                health.TakeDamageRpc(bulletDamage);
+                DestroyBullet();
+                isHit = true;
             }
         }
+    }
+
+    private void DestroyBullet()
+    {
+        gameObject.SetActive(false);
+        Runner.Despawn(GetComponent<NetworkObject>());
     }
 }

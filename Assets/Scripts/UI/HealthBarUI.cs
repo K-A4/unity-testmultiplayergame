@@ -23,7 +23,6 @@ public class HealthBarUI : MonoBehaviour
         {
             timeElapsed += Time.deltaTime;
             bar.fillAmount = Mathf.Lerp(previousFill, alpha, tweenEaseFunction.Evaluate(timeElapsed));
-            Debug.Log(bar.fillAmount);
             yield return null;
         }
 

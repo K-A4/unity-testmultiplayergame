@@ -236,10 +236,6 @@ public class NetworkDebugStart : Fusion.Behaviour {
 
   protected bool TryGetSceneRef(out SceneRef sceneRef) {
 
-    //if (NetworkSceneIndex > 0 && NetworkSceneIndex <= SceneManager.sceneCountInBuildSettings) {
-    //  sceneRef = NetworkSceneIndex;
-    //  return true;
-    //}
     var activeScene = SceneManager.GetActiveScene();
 
     if (activeScene.buildIndex < 0 || activeScene.buildIndex >= SceneManager.sceneCountInBuildSettings) {

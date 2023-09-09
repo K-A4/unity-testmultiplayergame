@@ -8,6 +8,7 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private float maxMoveSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] private Transform view;
+    [SerializeField] private bool disabled;
 
     private Vector2 goalVelocity;
     private Rigidbody2D rigidBody;
@@ -16,14 +17,16 @@ public class PlayerMovement : NetworkBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         inputGamepad = ServiceLocator.Instance.GetService<VirtualGamepad>();
+        GameLoader.OnGameStart += Enable;
     }
-
+    
     public override void FixedUpdateNetwork()
     {
-        if (!HasStateAuthority)
+        if (!HasStateAuthority || disabled)
         {
             return;
         }
+
         var inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         inputVector += inputGamepad.Value;
         inputVector = Vector2.ClampMagnitude(inputVector, 1.0f);
@@ -48,9 +51,19 @@ public class PlayerMovement : NetworkBehaviour
         rigidBody.AddForce(neededAcceleration);
     }
 
+    private void Enable()
+    {
+        disabled = false;
+    }
+
     private void RotateToMoveVector()
     {
         var angle = Mathf.Atan2(goalVelocity.x, goalVelocity.y) * Mathf.Rad2Deg;
         rigidBody.rotation = -angle;
+    }
+
+    private void OnDestroy()
+    {
+        GameLoader.OnGameStart -= Enable;
     }
 }

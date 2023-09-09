@@ -1,11 +1,16 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Fusion;
+using Fusion.Sockets;
+using System;
+using System.Threading.Tasks;
+using System.Linq;
 
 public class LobbyUI : MonoBehaviour
 {
-    [SerializeField] private NetworkDebugStart networkStart;
+    [SerializeField] private NetworkStarter networkStart;
     [SerializeField] private Button createButton;
     [SerializeField] private Button enterButton;
     [SerializeField] private InputField createRoomName;
@@ -19,14 +24,12 @@ public class LobbyUI : MonoBehaviour
 
     private void CreateRoom()
     {
-        networkStart.DefaultRoomName = createRoomName.text;
-        networkStart.StartSharedClient();
+        StartCoroutine(networkStart.LoadingConnection(createRoomName.text));
     }
 
     private void EnterRoom()
     {
-        networkStart.DefaultRoomName = enterRoomName.text;
-        networkStart.StartSharedClient();
+        StartCoroutine(networkStart.LoadingConnection(enterRoomName.text));
     }
 
     private void OnDestroy()
